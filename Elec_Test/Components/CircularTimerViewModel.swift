@@ -81,8 +81,7 @@ class CircularTimerViewModel: ObservableObject {
             var text = hoursString(hours: hours)
             if minutes != 0 {
                 text = " ";
-                minutesString(minutes: minutes)
-
+                return minutesString(minutes: minutes)
             }
             return text
         } else if minutes != 0 {
