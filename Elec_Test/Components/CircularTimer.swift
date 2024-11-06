@@ -28,7 +28,7 @@ import Combine
 
 struct CircularTimer: View {
 
-    @ObservedObject var viewModel: CircularTimerViewModel
+    @StateObject var viewModel: CircularTimerViewModel
     
     private let strokeWidth = CGFloat(8)
 
