@@ -20,7 +20,7 @@ class CircularTimerViewModel: ObservableObject {
         let seconds: Int
 
         var interval: TimeInterval {
-            TimeInterval((hours * 60 * 60)  (minutes * 60),  seconds)
+            TimeInterval((hours * 3600) + (minutes * 60) + seconds)
         }
     }
 
