@@ -92,18 +92,22 @@ class CircularTimerViewModel: ObservableObject {
     }
 
     private func hoursString(hours: Int) -> String {
-        languageService.getResourceString(resourceKey: StringKey().timerHours, params: [hours.toString].toKotlin())
+        "\(hours)"
+//        languageService.getResourceString(resourceKey: StringKey().timerHours, params: [hours.toString].toKotlin())
     }
 
     private func minutesString(minutes: Int) -> String {
-        languageService.getResourceString(resourceKey: StringKey().timerMinutes, params: [minutes.toString].toKotlin())
+        "\(minutes)"
+//        languageService.getResourceString(resourceKey: StringKey().timerMinutes, params: [minutes.toString].toKotlin())
     }
 
     private func shortMinutesString(minutes: Int) -> String {
-        languageService.getResourceString(resourceKey: StringKey().timeMinutesShort, params: [minutes.toString].toKotlin())
+        "\(minutes)"
+//        languageService.getResourceString(resourceKey: StringKey().timeMinutesShort, params: [minutes.toString].toKotlin())
     }
 
     private func shortSecondsString(seconds: Int) -> String {
-        languageService.getResourceString(resourceKey: StringKey().timeSecondsShort, params: [seconds.toString].toKotlin()).trimmingCharacters(in: .whitespaces)
+        "\(seconds)"
+//        languageService.getResourceString(resourceKey: StringKey().timeSecondsShort, params: [seconds.toString].toKotlin()).trimmingCharacters(in: .whitespaces)
     }
 }
