@@ -25,7 +25,7 @@ class CircularTimerViewModel: ObservableObject {
     }
 
     @Published var progress: CGFloat = 0
-    @Published var timerInterval: TimeInterval
+    @Published var timerDurationLeft: TimeInterval
 
     let timer: ProgressTimer
     private let timeStep = 0.25
@@ -38,7 +38,7 @@ class CircularTimerViewModel: ObservableObject {
         self.progress = progress
         self.stepProgress = timeStep / CGFloat(interval)
 
-        self.timerInterval = interval * (1 - progress)
+        self.timerDurationLeft = interval * (1 - progress)
 
         timer = Timer.publish(every: timeStep, on: .main, in: .common).autoconnect()
 
@@ -50,15 +50,16 @@ class CircularTimerViewModel: ObservableObject {
                 guard let self = self
                 else { return 0 }
 
-                if self.progress >= 1.0 || self.timerInterval <= 0 {
+                if self.progress >= 1.0 || self.timerDurationLeft <= 0 {
 
                     self.cancellable?.cancel()
                     return 1.0
                 } else {
 
-                    self.timerInterval -= self.timeStep
-                    print("progress \(self.progress)")
-                    return self.progress  self.stepProgress
+                    self.timerDurationLeft -= self.timeStep
+                    let newProgress = (interval - self.timerDurationLeft) / interval
+                    print("progress \(newProgress)")
+                    return newProgress
                 }
             }
             .removeDuplicates()
@@ -67,7 +68,7 @@ class CircularTimerViewModel: ObservableObject {
 
     func textFromTimeInterval() -> String {
 
-        let time = Int(timerInterval)
+        let time = Int(timerDurationLeft)
         let seconds = time % 60
         let minutes = (time / 60) % 60
         let hours = (time / 3_600)
