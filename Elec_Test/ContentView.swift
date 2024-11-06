@@ -14,7 +14,8 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
-            CircularProgressBar(progress: 1.0, text: "TEST")
+            CircularProgressBar(progress: .constant(1.0),
+                                text: .constant("TEST"))
         }
         .padding()
     }
