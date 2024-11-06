@@ -68,7 +68,7 @@ struct CircularTimer: View {
                 .animation(.spring(), value: viewModel.progress)
                 .overlay(
                     Text(
-                        viewModel.textFromTimeInterval()
+                        viewModel.textFromTimeInterval() ?? ""
                     )
                     .monospacedDigit()
                 )

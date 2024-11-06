@@ -67,49 +67,11 @@ class CircularTimerViewModel: ObservableObject {
             .assign(to: &$progress)
     }
 
-    func textFromTimeInterval() -> String {
-
-        let time = Int(timerDurationLeft)
-        let seconds = time % 60
-        let minutes = (time / 60) % 60
-        let hours = (time / 3_600)
-
-        return timeStringFrom(hours: hours, minutes: minutes, seconds: seconds)
-    }
-
-    private func timeStringFrom(hours: Int = 0, minutes: Int = 0, seconds: Int) -> String {
-
-        if hours != 0 {
-            var text = hoursString(hours: hours)
-            if minutes != 0 {
-                text = " ";
-                return minutesString(minutes: minutes)
-            }
-            return text
-        } else if minutes != 0 {
-            return shortMinutesString(minutes: minutes)
-        } else {
-            return shortSecondsString(seconds: seconds)
-        }
-    }
-
-    private func hoursString(hours: Int) -> String {
-        "\(hours)"
-//        languageService.getResourceString(resourceKey: StringKey().timerHours, params: [hours.toString].toKotlin())
-    }
-
-    private func minutesString(minutes: Int) -> String {
-        "\(minutes)"
-//        languageService.getResourceString(resourceKey: StringKey().timerMinutes, params: [minutes.toString].toKotlin())
-    }
-
-    private func shortMinutesString(minutes: Int) -> String {
-        "\(minutes)"
-//        languageService.getResourceString(resourceKey: StringKey().timeMinutesShort, params: [minutes.toString].toKotlin())
-    }
-
-    private func shortSecondsString(seconds: Int) -> String {
-        "\(seconds)"
-//        languageService.getResourceString(resourceKey: StringKey().timeSecondsShort, params: [seconds.toString].toKotlin()).trimmingCharacters(in: .whitespaces)
+    func textFromTimeInterval() -> String? {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.zeroFormattingBehavior = [.default]
+        return formatter.string(from: timerDurationLeft)
     }
 }
