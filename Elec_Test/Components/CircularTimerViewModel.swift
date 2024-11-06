@@ -42,8 +42,9 @@ class CircularTimerViewModel: ObservableObject {
 
         timer = Timer.publish(every: timeStep, on: .main, in: .common).autoconnect()
 
-        Timer.publish(every: timeStep, on: .main, in: .default)
-            .autoconnect()
+        cancellable = timer.upstream.connect()
+        
+        timer
             .receive(on: DispatchQueue.main)
             .compactMap { [weak self] _ in
 
