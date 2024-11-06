@@ -39,7 +39,7 @@ struct CircularProgressBar: View {
             CircularTimer(interval: 60, progress: 0.5)
 
             Text(text)
-                .foregroundColor(Color(hex: 0x011e41))
+                .foregroundColor(Color(hex: 0xFF011e41))
                 .font(.custom("MetricLight", size: 46))
         }
         .frame(width: 234.0, height: 234.0)
