@@ -30,15 +30,13 @@ struct CircularTimer: View {
 
     @StateObject var viewModel: CircularTimerViewModel
     
-    private let strokeWidth = CGFloat(8)
+    private let strokeWidth = Constants.strokeWidth
 
-    init(time: CircularTimerViewModel.Time, progress: CGFloat) {
-
+    init(time: CircularTimerViewModel.Time, progress: Double) {
         self.init(interval: time.interval, progress: progress)
     }
 
-    init(interval: TimeInterval, progress: CGFloat) {
-
+    init(interval: TimeInterval, progress: Double) {
         self._viewModel = StateObject(wrappedValue: CircularTimerViewModel(interval: interval, progress: progress))
     }
 
@@ -46,24 +44,22 @@ struct CircularTimer: View {
 
         GeometryReader { proxy in
 
-            VStack(spacing: 16) {
+            VStack(spacing: Constants.verticalSpacing) {
                 ZStack {
-
                     Circle()
                         .stroke(lineWidth: strokeWidth)
-                        .foregroundColor(Color(hex: 0xFF323333))
-
+                        .foregroundColor(Constants.baseCircleColor)
                     Circle()
                         .trim(from: 0, to: min(1.0, viewModel.progress))
                         .stroke(style: StrokeStyle(lineWidth: strokeWidth, lineCap: .round, lineJoin: .round))
-                        .foregroundColor(Color(hex: 0xFF4f758b))
+                        .foregroundColor(Constants.progressCircleColor)
 
                     Circle()
                         .trim(from: 0, to: min(1.0,  viewModel.progress - 0.001))
                         .stroke(style: StrokeStyle(lineWidth: strokeWidth, lineCap: .square, lineJoin: .round))
-                        .foregroundColor(Color(hex: 0xFF4f758b))
+                        .foregroundColor(Constants.progressCircleColor)
                 }
-                .frame(width: proxy.size.width * 0.7, alignment: .center)
+                .frame(width: proxy.size.width * Constants.sizeMultiplier, alignment: .center)
                 .rotationEffect(.degrees(90))
                 .animation(.spring(), value: viewModel.progress)
                 .overlay(
@@ -85,4 +81,12 @@ struct CircularTimer_Previews: PreviewProvider {
         CircularTimer(time: CircularTimerViewModel.Time(hours: 0, minutes: 0, seconds: 30),
                       progress: 0.0)
     }
+}
+
+private enum Constants {
+    static let strokeWidth: CGFloat = 8
+    static let verticalSpacing: CGFloat = 16
+    static let baseCircleColor = Color(hex: 0xFF323333)
+    static let progressCircleColor = Color(hex: 0xFF4f758b)
+    static let sizeMultiplier: CGFloat = 0.7
 }

@@ -22,17 +22,24 @@ import SwiftUI
 
 struct CircularProgressBar: View {
 
-    @Binding var progress: Float
-    @Binding var text: String
+    @Binding var progress: Double
+    
+    let text: String
 
     var body: some View {
         ZStack {
-            CircularTimer(interval: 60, progress: 0.5)
+            CircularTimer(interval: 60, progress: progress)
 
             Text(text)
-                .foregroundColor(Color(hex: 0xFF011e41))
-                .font(.custom("MetricLight", size: 46))
+                .foregroundColor(Constants.textColor)
+                .font(Constants.font)
         }
-        .frame(width: 234.0, height: 234.0)
+        .frame(width: Constants.frameSize, height: Constants.frameSize)
     }
+}
+
+private enum Constants {
+    static let textColor = Color(hex: 0xFF011e41)
+    static let font = Font.custom("MetricLight", size: 46)
+    static let frameSize: CGFloat = 234.0
 }

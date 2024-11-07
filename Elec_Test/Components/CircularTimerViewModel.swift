@@ -33,12 +33,12 @@ class CircularTimerViewModel: ObservableObject {
 
     var cancellable: Cancellable?
 
-    init(interval: TimeInterval, progress: CGFloat) {
+    init(interval: TimeInterval, progress: Double) {
 
-        self.progress = progress
+        self.progress = CGFloat(progress)
         self.stepProgress = timeStep / CGFloat(interval)
 
-        self.timerDurationLeft = interval * (1 - progress)
+        self.timerDurationLeft = interval * (1 - CGFloat(progress))
 
         timer = Timer.publish(every: timeStep, on: .main, in: .common).autoconnect()
 
